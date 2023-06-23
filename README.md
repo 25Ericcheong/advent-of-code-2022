@@ -1,2 +1,4 @@
 # Advent of Code
-FUn puzzles to warm my brain up for learning
+Fun puzzles to warm my brain up for learning
+
+[https://adventofcode.com/2022/day/1](First puzzle)

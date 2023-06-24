@@ -38,13 +38,7 @@ func main() {
 
 	var maxCalorie int
 	var sum int
-	for index, data := range lines {
-		fmt.Println(sum)
-		fmt.Println(data)
-		if index == 30 {
-			break
-		}
-
+	for _, data := range lines {
 		if data == "" {
 			if sum > maxCalorie {
 				maxCalorie = sum
@@ -62,5 +56,5 @@ func main() {
 		}
 	}
 
-	fmt.Println("Each line found in find should now be in an array")
+	fmt.Printf("Program has finished execution. Largest calorie is found to be %d \n", maxCalorie)
 }

@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"strconv"
+	"strings"
 )
 
 func Trebuchet() {
@@ -38,22 +39,59 @@ func getDigit(text string) (firstDigit int, secondDigit int) {
 	textLength := len(text)
 	first := 0
 	second := 0
-
-	for i := 0; i < textLength; i++ {
-		num, err := strconv.Atoi(text[i : i+1])
-		if err == nil {
-			first = num
-			break
-		}
+	spelledNum := ""
+	spelledNumToNum := map[string]int{
+		"one":   1,
+		"two":   2,
+		"three": 3,
+		"four":  4,
+		"five":  5,
+		"six":   6,
+		"seven": 7,
+		"eight": 8,
+		"nine":  9,
 	}
 
+	for i := 0; i < textLength; i++ {
+		spelledNum += text[i : i+1]
+		numInput, err := strconv.Atoi(text[i : i+1])
+		if err == nil {
+			first = numInput
+			break
+		}
+
+		if len(spelledNum) > 2 {
+			for spelledNumKey, numSpelled := range spelledNumToNum {
+				if strings.Contains(spelledNum, spelledNumKey) {
+					first = numSpelled
+					goto exitForFirstDigit
+				}
+			}
+		}
+	}
+exitForFirstDigit:
+
+	spelledNum = ""
+
 	for i := textLength - 1; i > -1; i-- {
+		spelledNum = text[i:i+1] + spelledNum
 		num, err := strconv.Atoi(text[i : i+1])
 
 		if err == nil {
 			second = num
 			break
 		}
+
+		if len(spelledNum) > 2 {
+			for spelledNumKey, numSpelled := range spelledNumToNum {
+				if strings.Contains(spelledNum, spelledNumKey) {
+					second = numSpelled
+					goto exitForSecondDigit
+				}
+			}
+		}
 	}
+exitForSecondDigit:
+
 	return first * 10, second
 }

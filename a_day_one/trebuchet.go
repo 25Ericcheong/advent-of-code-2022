@@ -9,7 +9,8 @@ import (
 )
 
 func Trebuchet() {
-	log.Println("Starting Trebuchet challenge")
+	fmt.Println("starting Trebuchet challenge")
+	fmt.Println("")
 	file, err := os.Open("./a_day_one/trebuchet_input.txt")
 
 	if err != nil {
@@ -17,11 +18,13 @@ func Trebuchet() {
 	}
 
 	scanner := bufio.NewScanner(file)
+	total := 0
+	fmt.Println("going through provided trebuchet input file now")
 	for scanner.Scan() {
-		fmt.Println(scanner.Text())
 		firstDigit, lastDigit := getDigit(scanner.Text())
-		fmt.Printf("Total %d\n", firstDigit+lastDigit)
+		total += firstDigit + lastDigit
 	}
+	fmt.Printf("finish calculation, total found to be %d\n", total)
 
 	defer func(file *os.File) {
 		err := file.Close()
